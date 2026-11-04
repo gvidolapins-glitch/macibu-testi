@@ -1,41 +1,32 @@
-
 <!DOCTYPE html>
-<html lang="lv">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mana mācību vietne</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f3f6fb;
-      text-align: center;
-      padding: 30px 15px;
-    }
-    .card {
-      background: white;
-      max-width: 500px;
-      margin: 30px auto;
-      padding: 25px;
-      border-radius: 16px;
-      box-shadow: 0 3px 12px #ddd;
-    }
-    a {
-      display: block;
-      padding: 15px;
-      background: #2563eb;
-      color: white;
-      border-radius: 10px;
-      text-decoration: none;
-    }
-  </style>
-</head>
-<body>
-  <div class="card">
-    <h1>Mana mācību vietne</h1>
-    <p>Interaktīvi testi skolēniem</p>
-    <h2>Matemātika – 5. klase</h2>
-    <p>Drīzumā: pirmskaitļi un dalītāji</p>
-  </div>
-</body>
-</html>
+<html lang="lv"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mācību testi — 5. klase</title><style>
+:root{font-family:Arial,sans-serif;color:#18243b;background:#f2f5fb}*{box-sizing:border-box}body{margin:0}header{background:#234bb3;color:white;padding:24px 16px;text-align:center}header h1{margin:0 0 8px}main{max-width:760px;margin:20px auto;padding:0 14px 50px}.card{background:white;border-radius:15px;padding:22px;margin:15px 0;box-shadow:0 3px 14px #17255412}.muted{color:#58667e}.topic{font-size:14px;color:#3156b7;font-weight:bold;margin-bottom:8px}.choice{display:flex;align-items:flex-start;gap:10px;padding:13px;border:1px solid #d9e0ed;border-radius:10px;margin:8px 0;cursor:pointer}.choice:has(input:checked){border-color:#3156b7;background:#eff4ff}input{margin-top:3px;accent-color:#234bb3}button{background:#234bb3;color:white;border:0;border-radius:10px;padding:15px 22px;font-size:16px;font-weight:bold;cursor:pointer;width:100%;margin-top:12px}.secondary{background:#e7edf9;color:#234bb3}.feedback{margin-top:12px;padding:13px;border-radius:9px;background:#f1f5f9}.good{background:#e8f7ed}.bad{background:#fff0ed}.hidden{display:none}.score{font-size:32px;font-weight:bold;color:#234bb3}#progress{font-size:14px;color:#58667e}footer{text-align:center;color:#667085;font-size:13px;padding:15px}
+</style></head><body><header><h1>📚 Mana mācību vietne</h1><div>Matemātika · 5. klase</div></header><main><section id="intro" class="card"><h2>Pirmskaitļi, pirmreizinātāji un dalītāji</h2><p>20 jautājumi · 1 punkts par katru pareizu atbildi.</p><p class="muted">Izvēlies vienu atbildi katram jautājumam. Beigās redzēsi rezultātu un kļūdu skaidrojumus.</p><button onclick="start()">Sākt testu</button></section><section id="quiz" class="hidden"><div class="card"><strong>Matemātikas tests</strong><p id="progress"></p></div><div id="questions"></div><button onclick="finish()">Pārbaudīt atbildes</button></section><section id="results" class="hidden card"><h2>Tavs rezultāts</h2><div id="score" class="score"></div><p id="summary"></p><div id="review"></div><button onclick="restart()">Pildīt vēlreiz</button><button class="secondary" onclick="home()">Uz sākumu</button></section></main><footer>Bezmaksas mācību testi · Rezultāti netiek saglabāti</footer><script>
+const data=[
+['Pirmskaitļi un salikti skaitļi','Kurš skaitlis ir pirmskaitlis?',['4','7','9','15'],1,'7 dalās tikai ar 1 un 7.'],
+['Pirmskaitļi un salikti skaitļi','Kurš skaitlis nav ne pirmskaitlis, ne salikts skaitlis?',['1','2','3','4'],0,'Skaitlim 1 ir tikai viens pozitīvs dalītājs.'],
+['Pirmskaitļi un salikti skaitļi','Kurš ir vienīgais pāra pirmskaitlis?',['4','6','2','8'],2,'2 ir vienīgais pāra pirmskaitlis.'],
+['Pirmskaitļi un salikti skaitļi','Kurš skaitlis ir salikts?',['11','13','17','21'],3,'21 = 3 × 7, tāpēc tas ir salikts skaitlis.'],
+['Pirmskaitļi un salikti skaitļi','Cik pirmskaitļu ir no 1 līdz 10?',['3','4','5','6'],1,'Tie ir 2, 3, 5 un 7 — kopā četri.'],
+['Pirmskaitļi un salikti skaitļi','Kurā rindā ir tikai pirmskaitļi?',['2, 3, 5, 11','3, 9, 11, 13','5, 7, 15, 17','2, 4, 7, 13'],0,'2, 3, 5 un 11 ir pirmskaitļi; pārējās rindās ir salikti skaitļi.'],
+['Sadalīšana pirmreizinātājos','Kā sadalīt 12 pirmreizinātājos?',['2 × 6','3 × 4','2 × 2 × 3','1 × 12'],2,'12 = 2 × 2 × 3. Visi reizinātāji ir pirmskaitļi.'],
+['Sadalīšana pirmreizinātājos','Kā sadalīt 18 pirmreizinātājos?',['2 × 9','2 × 3 × 3','3 × 6','1 × 18'],1,'18 = 2 × 3 × 3.'],
+['Sadalīšana pirmreizinātājos','Kā sadalīt 24 pirmreizinātājos?',['2 × 2 × 2 × 3','4 × 6','2 × 12','3 × 8'],0,'24 = 2 × 2 × 2 × 3.'],
+['Sadalīšana pirmreizinātājos','Kurš pirmreizinātāju reizinājums ir 45?',['3 × 15','5 × 9','3 × 3 × 5','2 × 3 × 5'],2,'45 = 3 × 3 × 5.'],
+['Sadalīšana pirmreizinātājos','Kāds skaitlis ir 2 × 2 × 3 × 5?',['30','45','50','60'],3,'2 × 2 × 3 × 5 = 60.'],
+['Sadalīšana pirmreizinātājos','Kā sadalīt 72 pirmreizinātājos?',['2 × 2 × 2 × 3 × 3','2 × 6 × 6','3 × 4 × 6','2 × 2 × 3 × 5'],0,'72 = 8 × 9 = 2 × 2 × 2 × 3 × 3.'],
+['Sadalīšana pirmreizinātājos','Cik reizes reizinātājs 2 atkārtojas skaitļa 40 sadalījumā?',['2','3','4','5'],1,'40 = 2 × 2 × 2 × 5 — trīs reizes.'],
+['Skaitļa dalītāji','Kuri ir visi skaitļa 12 pozitīvie dalītāji?',['1, 2, 3, 4, 6, 12','1, 2, 4, 12','2, 3, 4, 6','1, 3, 6, 12'],0,'12 dalās bez atlikuma ar 1, 2, 3, 4, 6 un 12.'],
+['Skaitļa dalītāji','Cik pozitīvu dalītāju ir skaitlim 7?',['1','3','2','4'],2,'Pirmskaitlim ir tieši divi pozitīvi dalītāji: 1 un pats skaitlis.'],
+['Skaitļa dalītāji','Kurš nav skaitļa 24 dalītājs?',['3','6','8','5'],3,'24 nedalās ar 5 bez atlikuma.'],
+['Skaitļa dalītāji','Cik pozitīvu dalītāju ir skaitlim 18?',['4','6','8','9'],1,'Tie ir 1, 2, 3, 6, 9 un 18 — kopā seši.'],
+['Skaitļa dalītāji','Kāds ir skaitļu 12 un 18 lielākais kopīgais dalītājs?',['3','9','6','12'],2,'Lielākais skaitlis, ar ko abi dalās bez atlikuma, ir 6.'],
+['Skaitļa dalītāji','Kuri ir visi skaitļa 20 pozitīvie dalītāji?',['1, 2, 4, 5, 10, 20','1, 2, 5, 10, 20','2, 4, 5, 10','1, 4, 5, 20'],0,'20 dalītāji ir 1, 2, 4, 5, 10 un 20.'],
+['Skaitļa dalītāji','Kuram skaitlim ir tieši trīs pozitīvi dalītāji?',['6','8','10','9'],3,'Skaitlim 9 ir trīs dalītāji: 1, 3 un 9.']
+];
+const $=id=>document.getElementById(id);const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function start(){$('intro').classList.add('hidden');$('results').classList.add('hidden');$('quiz').classList.remove('hidden');$('questions').innerHTML=data.map((q,i)=>`<article class="card"><div class="topic">${esc(q[0])}</div><h3>${i+1}. ${esc(q[1])}</h3>${q[2].map((a,j)=>`<label class="choice"><input type="radio" name="q${i}" value="${j}"><span>${esc(a)}</span></label>`).join('')}</article>`).join('');document.querySelectorAll('input[type=radio]').forEach(x=>x.addEventListener('change',progress));progress();window.scrollTo(0,0)}
+function progress(){let n=data.filter((_,i)=>document.querySelector(`input[name=q${i}]:checked`)).length;$('progress').textContent=`Atbildēti ${n} no ${data.length} jautājumiem`}
+function finish(){const chosen=data.map((_,i)=>document.querySelector(`input[name=q${i}]:checked`));if(chosen.some(x=>!x)){alert('Lūdzu, atbildi uz visiem 20 jautājumiem!');return}let points=0;let review='';data.forEach((q,i)=>{let pick=Number(chosen[i].value),ok=pick===q[3];if(ok)points++;review+=`<div class="feedback ${ok?'good':'bad'}"><strong>${i+1}. ${ok?'✓ Pareizi':'✗ Nepareizi'}</strong><p>${esc(q[1])}</p><p>Tava atbilde: ${esc(q[2][pick])}</p>${ok?'':`<p><strong>Pareizā atbilde: ${esc(q[2][q[3]])}</strong></p>`}<p>${esc(q[4])}</p></div>`});$('score').textContent=`${points} / 20 punkti (${Math.round(points/20*100)}%)`;$('summary').textContent=points>=18?'Izcili!':points>=14?'Labi! Pārskati kļūdas un pamēģini vēlreiz.':'Turpini trenēties! Zemāk ir skaidrojumi.';$('review').innerHTML=review;$('quiz').classList.add('hidden');$('results').classList.remove('hidden');window.scrollTo(0,0)}
+function restart(){start()}function home(){$('results').classList.add('hidden');$('intro').classList.remove('hidden');window.scrollTo(0,0)}
+</script></body></html>
